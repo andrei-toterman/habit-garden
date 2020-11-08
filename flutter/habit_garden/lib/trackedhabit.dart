@@ -1,4 +1,5 @@
 import 'flower.dart';
+import 'completionStatus.dart';
 
 class TrackedHabit {
 
@@ -7,7 +8,7 @@ class TrackedHabit {
   String _description; // description for tracked habit
   List _reminders; // list of dates and times for reminders
   Flower _flower; // associated flower
-  List _statuses; // list of completion statuses
+  List<CompletionStatus> _statuses; // list of completion statuses
   DateTime _creationdate; // creation date
 
   TrackedHabit(this._uniqueId,this._title,this._description,this._reminders,this._flower,this._statuses,this._creationdate);
@@ -27,9 +28,9 @@ class TrackedHabit {
 
   String get title => _title;
 
-  List get statuses => _statuses;
+  List<CompletionStatus> get statuses => _statuses;
 
-  set statuses(List value) {
+  set statuses(List<CompletionStatus> value) {
     _statuses = value;
   }
 
