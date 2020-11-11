@@ -8,14 +8,16 @@ part of 'flower.dart';
 
 Flower _$FlowerFromJson(Map<String, dynamic> json) {
   return Flower(
-    json['name'] as String,
-    json['degradationLevel'] as int,
-    json['assets'] as List,
+    json['type'] as String,
+    json['health'] as int,
+    (json['x'] as num)?.toDouble(),
+    (json['y'] as num)?.toDouble(),
   );
 }
 
 Map<String, dynamic> _$FlowerToJson(Flower instance) => <String, dynamic>{
-      'name': instance.name,
-      'degradationLevel': instance.degradationLevel,
-      'assets': instance.assets,
+      'type': instance.type,
+      'health': instance.health,
+      'x': instance.x,
+      'y': instance.y,
     };

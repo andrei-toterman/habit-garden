@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'completionStatus.dart';
+part of 'completion_status.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,13 +8,15 @@ part of 'completionStatus.dart';
 
 CompletionStatus _$CompletionStatusFromJson(Map<String, dynamic> json) {
   return CompletionStatus(
-    json['completionFlag'] as String,
-    json['feedback'] as String,
+    json['completionFlag'] as bool,
+    json['journalEntry'] as String,
+    json['moodLevel'] as int,
   );
 }
 
 Map<String, dynamic> _$CompletionStatusToJson(CompletionStatus instance) =>
     <String, dynamic>{
       'completionFlag': instance.completionFlag,
-      'feedback': instance.feedback,
+      'journalEntry': instance.journalEntry,
+      'moodLevel': instance.moodLevel,
     };
