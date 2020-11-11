@@ -1,79 +1,33 @@
 import 'flower.dart';
 import 'completionStatus.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:convert';
+
+/// This allows the `User` class to access private members in
+/// the generated file. The value for this is *.g.dart, where
+/// the star denotes the source file name.
+part 'trackedhabit.g.dart';
+
+/// An annotation for the code generator to know that this class needs the
+/// JSON serialization logic to be generated.
+@JsonSerializable(explicitToJson: true)
 
 class TrackedHabit {
 
-  int _uniqueId; // unique id for tracked habit
-  String _title; // title
-  String _description; // description for tracked habit
-  List _reminders; // list of dates and times for reminders
-  Flower _flower; // associated flower
-  List<CompletionStatus> _statuses; // list of completion statuses
-  DateTime _creationdate; // creation date
-
-  TrackedHabit(this._uniqueId,this._title,this._description,this._reminders,this._flower,this._statuses,this._creationdate);
+  final int uniqueId; // unique id for tracked habit
+  String title; // title
+  String description; // description for tracked habit
+  List reminders; // list of dates and times for reminders
+  Flower flower; // associated flower
+  List<CompletionStatus> statuses; // list of completion statuses
+  DateTime creationdate;
 
 
-  DateTime get creationdate => _creationdate;
+  TrackedHabit(this.uniqueId, this.title, this.description, this.reminders,
+      this.flower, this.statuses, this.creationdate);
 
-  set creationdate(DateTime value) {
-    _creationdate = value;
-  } // getter for uniqueId
-  int get uniqueId => _uniqueId;
+  factory TrackedHabit.fromJson(Map<String,dynamic> json) => _$TrackedHabitFromJson(json);
 
-  //setter for uniqueId
-  set uniqueId(int value) {
-    _uniqueId = value;
-  }
-
-  String get title => _title;
-
-  List<CompletionStatus> get statuses => _statuses;
-
-  set statuses(List<CompletionStatus> value) {
-    _statuses = value;
-  }
-
-  Flower get flower => _flower;
-
-  set flower(Flower value) {
-    _flower = value;
-  }
-
-  List get reminders => _reminders;
-
-  set reminders(List value) {
-    _reminders = value;
-  }
-
-  String get description => _description;
-
-  set description(String value) {
-    _description = value;
-  }
-
-  set title(String value) {
-    _title = value;
-  }
-
-  TrackedHabit.fromJson(Map<String,dynamic> json)
-              : _uniqueId = json['uniqueId'],
-                _title = json['title'],
-                _description = json['description'],
-                _reminders = json['reminders'],
-                _flower = json['flower'],
-                _statuses = json['status'],
-                _creationdate = DateTime.parse(json['creationdate']);
-
-  Map<String,dynamic> toJson() =>
-      {
-          'uniqueId': _uniqueId,
-          'title': _title,
-          'description': _description,
-          'reminders': _reminders,
-          'flower': _flower,
-          'status': _statuses,
-          'creationdate': _creationdate
-      };
+  Map<String,dynamic> toJson() => _$TrackedHabitToJson(this);
 
 }

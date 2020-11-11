@@ -1,24 +1,18 @@
+import 'package:json_annotation/json_annotation.dart';
+
+
+part 'flower.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Flower{
 
-  String _name; //name
-  int _degradationLevel; // degradation level
-  List _assets; // assets
+  String name; //name
+  int degradationLevel; // degradation level
+  List assets;
 
-  String get name => _name;
+  Flower(this.name, this.degradationLevel, this.assets); // assets
 
-  set name(String value) {
-    _name = value;
-  }
+  factory Flower.fromJson(Map<String,dynamic> json) => _$FlowerFromJson(json);
 
-  int get degradationLevel => _degradationLevel;
-
-  List get assets => _assets;
-
-  set assets(List value) {
-    _assets = value;
-  }
-
-  set degradationLevel(int value) {
-    _degradationLevel = value;
-  }
+  Map<String,dynamic> toJson() => _$FlowerToJson(this);
 }

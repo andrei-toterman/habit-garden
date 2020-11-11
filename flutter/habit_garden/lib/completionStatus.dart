@@ -1,18 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'completionStatus.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class CompletionStatus{
-  String _completionFlag;
-  String _feedback;
+  String completionFlag;
+  String feedback;
 
-  String get completionFlag => _completionFlag;
+  CompletionStatus(this.completionFlag, this.feedback);
 
-  set completionFlag(String value) {
-    _completionFlag=value;
-  }
+  factory CompletionStatus.fromJson(Map<String,dynamic> json) => _$CompletionStatusFromJson(json);
 
-  String get feedback => _feedback;
-
-  set feedback(String value) {
-    _feedback = value;
-  }
-
-
+  Map<String,dynamic> toJson() => _$CompletionStatusToJson(this);
 }
