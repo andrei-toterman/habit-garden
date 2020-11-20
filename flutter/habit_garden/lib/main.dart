@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:habit_garden/app_state.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(App(
+      child: MyApp(),
+    ));
+
+class App extends InheritedWidget {
+  final AppState state = AppState();
+  final Widget child;
+
+  App({@required this.child});
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+
+  static App of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<App>();
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override
