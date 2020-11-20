@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   json_annotation: ^3.0.0
+  path_provider: ^1.6.24
 
 dev_dependencies:
   flutter_test:
