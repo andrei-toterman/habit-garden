@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_garden/app_state.dart';
 import 'package:habit_garden/models/new_habit.dart';
-import 'package:habit_garden/pages/new_habit_list.dart';
+import 'package:habit_garden/screens/new_habit_list.dart';
 
 void main() => runApp(App());
 

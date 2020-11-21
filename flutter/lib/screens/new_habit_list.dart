@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_garden/models/new_habit.dart';
-import 'package:habit_garden/pages/setup_new_habit.dart';
+import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
 
 class NewHabitList extends StatelessWidget {
   final List<NewHabit> newHabits;
