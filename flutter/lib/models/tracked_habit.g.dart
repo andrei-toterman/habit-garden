@@ -10,29 +10,26 @@ TrackedHabit _$TrackedHabitFromJson(Map<String, dynamic> json) {
   return TrackedHabit(
     json['title'] as String,
     json['description'] as String,
-    json['schedule'] as List,
-    json['flower'] == null
-        ? null
-        : Flower.fromJson(json['flower'] as Map<String, dynamic>),
-    json['creationDate'] == null
-        ? null
-        : DateTime.parse(json['creationDate'] as String),
+    (json['schedules'] as List)
+        .map((e) => ScheduleEntry.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    Flower.fromJson(json['flower'] as Map<String, dynamic>),
+    (json['completionHistory'] as List)
+        .map((e) => CompletionStatus.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    DateTime.parse(json['creationDate'] as String),
     json['difficulty'] as int,
-  )..completionHistory = (json['completionHistory'] as List)
-      ?.map((e) => e == null
-          ? null
-          : CompletionStatus.fromJson(e as Map<String, dynamic>))
-      ?.toList();
+  );
 }
 
 Map<String, dynamic> _$TrackedHabitToJson(TrackedHabit instance) =>
     <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
-      'schedule': instance.schedule,
-      'flower': instance.flower?.toJson(),
+      'schedules': instance.schedules.map((e) => e.toJson()).toList(),
+      'flower': instance.flower.toJson(),
       'completionHistory':
-          instance.completionHistory?.map((e) => e?.toJson())?.toList(),
-      'creationDate': instance.creationDate?.toIso8601String(),
+          instance.completionHistory.map((e) => e.toJson()).toList(),
+      'creationDate': instance.creationDate.toIso8601String(),
       'difficulty': instance.difficulty,
     };
