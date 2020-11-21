@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:habit_garden/possible_habit_model.dart';
+import 'package:habit_garden/models/new_habit.dart';
 
 class SetupNewHabit extends StatefulWidget {
-  final PossibleHabitModel model;
+  final NewHabit model;
 
   const SetupNewHabit({Key key, this.model}) : super(key: key);
 

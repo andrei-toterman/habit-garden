@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/possible_habit_model.dart';
-import 'package:habit_garden/setup_new_habit.dart';
+import 'package:habit_garden/models/new_habit.dart';
+import 'package:habit_garden/pages/setup_new_habit.dart';
 
-class NewHabitSelectionScreen extends StatelessWidget {
-  final List<PossibleHabitModel> possibleHabitModels;
+class NewHabitList extends StatelessWidget {
+  final List<NewHabit> newHabits;
 
-  const NewHabitSelectionScreen({Key key, @required this.possibleHabitModels})
+  const NewHabitList({Key key, @required this.newHabits})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.separated(
-        itemCount: possibleHabitModels.length,
+        itemCount: newHabits.length,
         separatorBuilder: (BuildContext context, int index) => Divider(
           thickness: 2,
           height: 0,
           color: Colors.black,
         ),
-        itemBuilder: (BuildContext context, int index) => PossibleHabitListItem(
-          model: possibleHabitModels[index],
+        itemBuilder: (BuildContext context, int index) => NewHabitCard(
+          model: newHabits[index],
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => SetupNewHabit(
-                model: possibleHabitModels[index],
+                model: newHabits[index],
               ),
             ),
           ),
@@ -34,11 +34,11 @@ class NewHabitSelectionScreen extends StatelessWidget {
   }
 }
 
-class PossibleHabitListItem extends StatelessWidget {
-  final PossibleHabitModel model;
+class NewHabitCard extends StatelessWidget {
+  final NewHabit model;
   final onTap;
 
-  PossibleHabitListItem({Key key, this.model, this.onTap}) : super(key: key);
+  NewHabitCard({Key key, this.model, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
