@@ -9,6 +9,7 @@ jobs:
         name: run flutter test and analyze
         runs-on: ubuntu-latest
         steps:
+            - working-directory: flutter/habit_garden
             - uses: actions/checkout@v2
             - uses: actions/setup-java@v1
               with:
