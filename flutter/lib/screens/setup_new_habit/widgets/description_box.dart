@@ -4,8 +4,8 @@ class DescriptionBox extends StatefulWidget {
   final Function(String description) updateDescription;
   final String initialDescription;
 
-  const DescriptionBox(
-      {Key key, this.updateDescription, this.initialDescription})
+  const DescriptionBox(this.updateDescription,
+      {Key key, this.initialDescription})
       : super(key: key);
 
   @override
@@ -34,7 +34,6 @@ class _DescriptionBoxState extends State<DescriptionBox> {
         cursorColor: Colors.black,
         controller: descriptionController,
         onChanged: (String description) {
-          descriptionController.text = description;
           widget.updateDescription(description);
         },
         decoration: InputDecoration(

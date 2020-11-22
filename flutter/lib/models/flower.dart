@@ -6,7 +6,7 @@ part 'flower.g.dart';
 class Flower {
   // the type and the health combined will identify the associated asset
   // i.e.  rose_3.png
-  final String type;
+  String type;
   int health;
   // coordinates for positioning inside garden
   double x, y;

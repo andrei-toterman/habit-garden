@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Difficulty extends StatefulWidget {
   final Function(int difficulty) updateDifficulty;
 
-  const Difficulty({Key key, this.updateDifficulty}) : super(key: key);
+  const Difficulty(this.updateDifficulty, {Key key}) : super(key: key);
 
   @override
   _DifficultyState createState() => _DifficultyState();

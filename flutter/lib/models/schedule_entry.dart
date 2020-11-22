@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'schedule_entry.g.dart';
@@ -9,6 +10,11 @@ class ScheduleEntry {
   final Set<int> days;
 
   ScheduleEntry(this.hour, this.minute, this.days);
+
+  ScheduleEntry.fromTimeOfDay(TimeOfDay time)
+      : hour = time.hour,
+        minute = time.minute,
+        days = Set();
 
   ScheduleEntry.fromDateTime(DateTime time)
       : hour = time.hour,
@@ -37,4 +43,3 @@ class ScheduleEntry {
 
   Map<String, dynamic> toJson() => _$ScheduleEntryToJson(this);
 }
-

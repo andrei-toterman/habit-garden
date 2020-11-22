@@ -14,7 +14,7 @@ class TrackedHabit {
   final Flower flower;
   final List<CompletionStatus> completionHistory;
   final DateTime creationDate;
-  final int difficulty;
+  int difficulty;
 
   set flowerX(double x) {
     flower.x = x;

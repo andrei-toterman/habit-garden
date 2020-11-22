@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class FlowerPicker extends StatefulWidget {
   final Function(String type) updateFlowerType;
-  final flowerTypes = ['type1', 'type2', 'type3'];
+  static final flowerTypes = ['type1', 'type2', 'type3'];
 
-  FlowerPicker({Key key, this.updateFlowerType}) : super(key: key);
+  FlowerPicker(this.updateFlowerType, {Key key}) : super(key: key);
 
   @override
   _FlowerPickerState createState() => _FlowerPickerState();
@@ -18,17 +18,17 @@ class _FlowerPickerState extends State<FlowerPicker> {
     return GestureDetector(
       onHorizontalDragEnd: (drag) {
         setState(() {
-          currentFlower = (currentFlower + drag.primaryVelocity.sign.toInt()) %
-              widget.flowerTypes.length;
+          currentFlower = (currentFlower - drag.primaryVelocity.sign.toInt()) %
+              FlowerPicker.flowerTypes.length;
         });
-        widget.updateFlowerType(widget.flowerTypes[currentFlower]);
+        widget.updateFlowerType(FlowerPicker.flowerTypes[currentFlower]);
       },
       child: Container(
         width: 150,
         height: 150,
         alignment: Alignment.center,
         child: Text(
-          widget.flowerTypes[currentFlower],
+          FlowerPicker.flowerTypes[currentFlower],
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
