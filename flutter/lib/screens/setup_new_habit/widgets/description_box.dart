@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:habit_garden/models/tracked_habit.dart';
+import 'package:provider/provider.dart';
 
 class DescriptionBox extends StatefulWidget {
-  final Function(String description) updateDescription;
   final String initialDescription;
 
-  const DescriptionBox(this.updateDescription,
-      {Key key, this.initialDescription})
-      : super(key: key);
+  const DescriptionBox({Key key, this.initialDescription}) : super(key: key);
 
   @override
   _DescriptionBoxState createState() => _DescriptionBoxState();
@@ -33,9 +32,7 @@ class _DescriptionBoxState extends State<DescriptionBox> {
         textAlignVertical: TextAlignVertical.top,
         cursorColor: Colors.black,
         controller: descriptionController,
-        onChanged: (String description) {
-          widget.updateDescription(description);
-        },
+        onChanged: (d) => context.read<TrackedHabit>().description = d,
         decoration: InputDecoration(
           hintText: 'custom user description',
           focusedBorder: OutlineInputBorder(

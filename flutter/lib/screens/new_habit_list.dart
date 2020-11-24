@@ -5,26 +5,25 @@ import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
 class NewHabitList extends StatelessWidget {
   final List<NewHabit> newHabits;
 
-  const NewHabitList({Key key, @required this.newHabits})
-      : super(key: key);
+  const NewHabitList({Key key, @required this.newHabits}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.separated(
         itemCount: newHabits.length,
-        separatorBuilder: (BuildContext context, int index) => Divider(
+        separatorBuilder: (context, index) => Divider(
           thickness: 2,
           height: 0,
           color: Colors.black,
         ),
-        itemBuilder: (BuildContext context, int index) => NewHabitCard(
+        itemBuilder: (context, index) => NewHabitCard(
           model: newHabits[index],
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => SetupNewHabit(
-                model: newHabits[index],
+                newHabit: newHabits[index],
               ),
             ),
           ),

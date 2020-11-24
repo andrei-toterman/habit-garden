@@ -72,6 +72,7 @@ class TimeCard extends StatelessWidget {
             '${entry.hour}:${entry.minute}',
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
+          Icon(Icons.highlight_remove_outlined, color: Colors.black,)
         ],
       ),
     );
