@@ -10,8 +10,9 @@ class AppState extends ChangeNotifier {
 
   List<TrackedHabit> _trackedHabits;
 
-  AppState() {
-    _loadTrackedHabits();
+  Future<AppState> load() async {
+    await _loadTrackedHabits();
+    return this;
   }
 
   _loadTrackedHabits() async {
@@ -19,23 +20,23 @@ class AppState extends ChangeNotifier {
       final directory = await getApplicationDocumentsDirectory();
       final file = File('${directory.path}$_tracked_habits_file');
       final data = await file.readAsString();
-      this._trackedHabits = (jsonDecode(data) as List)
+      _trackedHabits = (jsonDecode(data) as List)
           .map((th) => TrackedHabit.fromJson(th))
           .toList();
     } catch (_) {
       _trackedHabits = [];
     }
+    print(jsonEncode(_trackedHabits));
   }
 
   _storeTrackedHabits() async {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}$_tracked_habits_file');
-    final data = jsonEncode(this._trackedHabits);
-    await file.writeAsString(data);
+    await file.writeAsString(jsonEncode(_trackedHabits));
   }
 
   addTrackedHabit(TrackedHabit trackedHabit) {
-    this._trackedHabits.add(trackedHabit);
+    _trackedHabits.add(trackedHabit);
     _storeTrackedHabits();
     notifyListeners();
   }

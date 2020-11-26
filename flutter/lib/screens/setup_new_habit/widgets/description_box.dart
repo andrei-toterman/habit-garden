@@ -33,6 +33,7 @@ class _DescriptionBoxState extends State<DescriptionBox> {
         cursorColor: Colors.black,
         controller: descriptionController,
         onChanged: (d) => context.read<TrackedHabit>().description = d,
+        style: TextStyle(color: Colors.black, fontSize: 20),
         decoration: InputDecoration(
           hintText: 'custom user description',
           focusedBorder: OutlineInputBorder(

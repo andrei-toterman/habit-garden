@@ -7,7 +7,7 @@ class Difficulty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('difficulty', style: TextStyle(fontSize: 20, color: Colors.black)),
+        Text('Difficulty', style: TextStyle(fontSize: 20, color: Colors.black)),
         Slider(
           min: 0,
           max: 4,

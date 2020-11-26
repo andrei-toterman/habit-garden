@@ -1,58 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_garden/models/schedule_entry.dart';
+import 'package:habit_garden/models/tracked_habit.dart';
+import 'package:provider/provider.dart';
 
-class ScheduleList extends StatefulWidget {
-  final List<ScheduleEntry> schedules;
-
-  const ScheduleList(this.schedules, {Key key}) : super(key: key);
-
-  @override
-  _ScheduleListState createState() => _ScheduleListState();
-}
-
-class _ScheduleListState extends State<ScheduleList> {
+class ScheduleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Expanded(
+        Text('Schedule', style: TextStyle(fontSize: 20, color: Colors.black)),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          height: 50,
+          decoration:
+              BoxDecoration(border: Border.all(color: Colors.black, width: 3)),
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: widget.schedules.map((t) {
-              return Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Text(
-                  '${t.hour}:${t.minute}',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-              );
-            }).toList(),
+            children: context
+                .select<TrackedHabit, List<ScheduleEntry>>(
+                    (t) => [...t.schedules])
+                .map((e) => TimeCard(e))
+                .toList(),
           ),
         ),
-        SizedBox(width: 10),
-        GestureDetector(
-          onTap: () => pickTime(),
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Icon(Icons.add_box_outlined, color: Colors.black, size: 35),
-          ),
-        ),
+        TimeDaySelect(),
       ],
     );
-  }
-
-  void pickTime() async {
-    var time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
-    if (time != null) {
-      ScheduleEntry entry = ScheduleEntry.fromTimeOfDay(time);
-      setState(() {
-        widget.schedules.add(entry);
-      });
-    }
   }
 }
 
@@ -65,16 +39,126 @@ class TimeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
           Text(
-            '${entry.hour}:${entry.minute}',
+            '${(entry.hour < 10 ? '0' : '') + entry.hour.toString()}:${(entry.minute < 10 ? '0' : '') + entry.minute.toString()}',
             style: TextStyle(color: Colors.black, fontSize: 20),
           ),
-          Icon(Icons.highlight_remove_outlined, color: Colors.black,)
+          GestureDetector(
+            child: Icon(Icons.highlight_remove_outlined, color: Colors.black),
+            onTap: () => context.read<TrackedHabit>().removeSchedule(entry),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class TimeDaySelect extends StatefulWidget {
+  @override
+  _TimeDaySelectState createState() => _TimeDaySelectState();
+}
+
+class _TimeDaySelectState extends State<TimeDaySelect> {
+  final List<bool> selectedDays = List.filled(7, false);
+  int hour;
+  int minute;
+
+  @override
+  void initState() {
+    super.initState();
+    hour = context.read<TrackedHabit>().creationDate.hour;
+    minute = context.read<TrackedHabit>().creationDate.minute;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      decoration:
+          BoxDecoration(border: Border.all(color: Colors.black, width: 3)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildSpinner(
+                  value: hour,
+                  mod: 24,
+                  onChanged: (newHour) => setState(() => hour = newHour)),
+              Text(
+                ':',
+                style: TextStyle(color: Colors.black, fontSize: 25),
+              ),
+              buildSpinner(
+                  value: minute,
+                  mod: 60,
+                  onChanged: (newMinute) => setState(() => minute = newMinute)),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ToggleButtons(
+                isSelected: selectedDays,
+                onPressed: (index) =>
+                    setState(() => selectedDays[index] = !selectedDays[index]),
+                borderColor: Colors.black,
+                fillColor: Colors.black,
+                selectedColor: Colors.white,
+                borderWidth: 3,
+                selectedBorderColor: Colors.black,
+                textStyle: TextStyle(color: Colors.black, fontSize: 17),
+                children: [
+                  Text('Mon'),
+                  Text('Tue'),
+                  Text('Wed'),
+                  Text('Thu'),
+                  Text('Fri'),
+                  Text('Sat'),
+                  Text('Sun'),
+                ],
+              ),
+              GestureDetector(
+                child:
+                    Icon(Icons.add_box_outlined, size: 45, color: Colors.black),
+                onTap: () {
+                  context.read<TrackedHabit>().addSchedule(ScheduleEntry(
+                      hour,
+                      minute,
+                      selectedDays
+                          .asMap()
+                          .entries
+                          .where((e) => e.value)
+                          .map((e) => e.key)
+                          .toSet()));
+                },
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column buildSpinner({int value, int mod, Function(int) onChanged}) {
+    return Column(
+      children: [
+        GestureDetector(
+          child: Icon(Icons.arrow_drop_up, color: Colors.black, size: 35),
+          onTap: () => onChanged(++value % mod),
+        ),
+        Text(
+          '${value < 10 ? '0' + value.toString() : value.toString()}',
+          style: TextStyle(color: Colors.black, fontSize: 30),
+        ),
+        GestureDetector(
+          child: Icon(Icons.arrow_drop_down, color: Colors.black, size: 35),
+          onTap: () => onChanged(--value % mod),
+        ),
+      ],
     );
   }
 }

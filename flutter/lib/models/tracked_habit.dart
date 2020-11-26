@@ -33,6 +33,11 @@ class TrackedHabit extends ChangeNotifier {
     notifyListeners();
   }
 
+  removeSchedule(ScheduleEntry entry) {
+    schedules.remove(entry);
+    notifyListeners();
+  }
+
   addStatus(CompletionStatus status) {
     completionHistory.add(status);
     notifyListeners();

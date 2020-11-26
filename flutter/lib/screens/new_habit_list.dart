@@ -5,27 +5,20 @@ import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
 class NewHabitList extends StatelessWidget {
   final List<NewHabit> newHabits;
 
-  const NewHabitList({Key key, @required this.newHabits}) : super(key: key);
+  const NewHabitList(this.newHabits, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.separated(
         itemCount: newHabits.length,
-        separatorBuilder: (context, index) => Divider(
-          thickness: 2,
-          height: 0,
-          color: Colors.black,
-        ),
-        itemBuilder: (context, index) => NewHabitCard(
+        separatorBuilder: (context, index) =>
+            Divider(thickness: 2, height: 0, color: Colors.black),
+        itemBuilder: (_, index) => NewHabitCard(
           model: newHabits[index],
           onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => SetupNewHabit(
-                newHabit: newHabits[index],
-              ),
-            ),
+            _,
+            MaterialPageRoute(builder: (_) => SetupNewHabit(newHabits[index])),
           ),
         ),
       ),
@@ -52,9 +45,7 @@ class NewHabitCard extends StatelessWidget {
             width: 100,
             height: 100,
             margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              border: Border.all(width: 3),
-            ),
+            decoration: BoxDecoration(border: Border.all(width: 3)),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +54,11 @@ class NewHabitCard extends StatelessWidget {
                 model.title,
                 style: TextStyle(fontSize: 25, color: Colors.black),
               ),
-              Text(model.description),
+              Text(
+                model.description,
+                softWrap: true,
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              ),
             ],
           ),
           Spacer(),
@@ -71,10 +66,7 @@ class NewHabitCard extends StatelessWidget {
             onTap: onTap,
             child: Container(
               margin: EdgeInsets.all(10),
-              child: Icon(
-                Icons.add_box_outlined,
-                size: 35,
-              ),
+              child: Icon(Icons.add_box_outlined, size: 35),
             ),
           ),
         ],
