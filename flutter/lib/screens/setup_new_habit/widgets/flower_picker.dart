@@ -3,7 +3,7 @@ import 'package:habit_garden/models/tracked_habit.dart';
 import 'package:provider/provider.dart';
 
 class FlowerPicker extends StatefulWidget {
-  static final types = ['type1', 'type2', 'type3'];
+  static final types = ['red', 'yellow', 'orange', 'black'];
 
   @override
   _FlowerPickerState createState() => _FlowerPickerState();
@@ -26,12 +26,14 @@ class _FlowerPickerState extends State<FlowerPicker> {
         width: 150,
         height: 150,
         alignment: Alignment.center,
-        child: Text(
-          FlowerPicker.types[typeIdx],
-          style: TextStyle(color: Colors.black, fontSize: 20),
-        ),
+        child:
+            Image.asset('assets/flowers/${FlowerPicker.types[typeIdx]}_4.png'),
         decoration: BoxDecoration(
-          border: Border.all(width: 3),
+          color: Color(0xffA5A58D),
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
         ),
       ),
     );

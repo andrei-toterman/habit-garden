@@ -24,3 +24,22 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - assets/wip.png
+    - assets/flowers/red_1.png
+    - assets/flowers/red_2.png
+    - assets/flowers/red_3.png
+    - assets/flowers/red_4.png
+    - assets/flowers/orange_1.png
+    - assets/flowers/orange_2.png
+    - assets/flowers/orange_3.png
+    - assets/flowers/orange_4.png
+    - assets/flowers/yellow_1.png
+    - assets/flowers/yellow_2.png
+    - assets/flowers/yellow_3.png
+    - assets/flowers/yellow_4.png
+    - assets/flowers/black_1.png
+    - assets/flowers/black_2.png
+    - assets/flowers/black_3.png
+    - assets/flowers/black_4.png

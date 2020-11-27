@@ -10,15 +10,16 @@ import 'package:habit_garden/screens/setup_new_habit/widgets/schedule_list.dart'
 import 'package:provider/provider.dart';
 
 class SetupNewHabit extends StatelessWidget {
-  final NewHabit newHabit;
-
-  const SetupNewHabit(this.newHabit, {Key key}) : super(key: key);
+  static const route = '/setup_new_habit';
 
   @override
   Widget build(BuildContext context) {
+    final NewHabit newHabit = ModalRoute.of(context).settings.arguments;
     return ChangeNotifierProvider(
       create: (_) => TrackedHabit.fromNewHabit(newHabit),
       builder: (context, _) => Scaffold(
+        backgroundColor: Color(0xffFFF1E6),
+        resizeToAvoidBottomInset: false,
         body: Column(
           children: [
             Header(title: newHabit.title, icon: "icon"),
@@ -39,20 +40,28 @@ class SetupNewHabit extends StatelessWidget {
             ScheduleList(),
             Spacer(),
             GestureDetector(
-              child: Container(
-                alignment: Alignment.center,
-                height: 50,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 3),
-                ),
-                child: Text(
-                  'Add',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-              ),
               onTap: () => context
                   .read<AppState>()
                   .addTrackedHabit(context.read<TrackedHabit>()),
+              child: Container(
+                alignment: Alignment.center,
+                height: 70,
+                child: Text(
+                  'Add',
+                  style: TextStyle(
+                    color: Color(0xff30452D),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Color(0xffA5A58D),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+              ),
             )
           ],
         ),

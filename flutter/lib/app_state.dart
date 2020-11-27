@@ -18,7 +18,7 @@ class AppState extends ChangeNotifier {
   _loadTrackedHabits() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final file = File('${directory.path}$_tracked_habits_file');
+      final file = File('${directory.path}/$_tracked_habits_file');
       final data = await file.readAsString();
       _trackedHabits = (jsonDecode(data) as List)
           .map((th) => TrackedHabit.fromJson(th))
@@ -26,7 +26,6 @@ class AppState extends ChangeNotifier {
     } catch (_) {
       _trackedHabits = [];
     }
-    print(jsonEncode(_trackedHabits));
   }
 
   _storeTrackedHabits() async {
