@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:habit_garden/models/tracked_habit.dart';
+import 'package:habit_garden/screens/app_drawer.dart';
+import 'package:habit_garden/screens/garden/garden_flower.dart';
+import 'package:provider/provider.dart';
+
+import '../../app_state.dart';
 
 class Garden extends StatelessWidget {
   static const route = 'garden';
@@ -7,21 +13,18 @@ class Garden extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff9fde65),
-      body: Stack(
-        children: [
-          buildFlower('orange', 3),
-          buildFlower('yellow', 2),
-        ],
+      drawer: AppDrawer(),
+      body: Center(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Selector<AppState, List<TrackedHabit>>(
+            selector: (_, a) => [...a.trackedHabits],
+            builder: (_, habits, __) => Stack(
+              children: habits.map((e) => GardenFlower(e.flower)).toList(),
+            ),
+          ),
+        ),
       ),
     );
-  }
-
-  Container buildFlower(String type, int health) {
-    return Container(
-          child: Image.asset("assets/flowers/${type}_$health.png"),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.red, width: 3),
-          ),
-        );
   }
 }

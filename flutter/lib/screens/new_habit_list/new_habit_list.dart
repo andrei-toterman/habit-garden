@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_garden/models/new_habit.dart';
+import 'package:habit_garden/screens/app_drawer.dart';
 import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
 
 import 'new_habit_card.dart';
@@ -11,6 +12,7 @@ class NewHabitList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFFF1E6),
+      drawer: AppDrawer(),
       body: ListView(
         children: newHabits.map((habit) => NewHabitCard(
             model: habit,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:habit_garden/app_state.dart';
 import 'package:habit_garden/models/new_habit.dart';
 import 'package:habit_garden/models/tracked_habit.dart';
+import 'package:habit_garden/screens/app_drawer.dart';
+import 'package:habit_garden/screens/garden/garden.dart';
 import 'package:habit_garden/screens/setup_new_habit/widgets/description_box.dart';
 import 'package:habit_garden/screens/setup_new_habit/widgets/difficulty.dart';
 import 'package:habit_garden/screens/setup_new_habit/widgets/flower_picker.dart';
@@ -19,6 +21,7 @@ class SetupNewHabit extends StatelessWidget {
       create: (_) => TrackedHabit.fromNewHabit(newHabit),
       builder: (context, _) => Scaffold(
         backgroundColor: Color(0xffFFF1E6),
+        drawer: AppDrawer(),
         resizeToAvoidBottomInset: false,
         body: Column(
           children: [
@@ -40,9 +43,12 @@ class SetupNewHabit extends StatelessWidget {
             ScheduleList(),
             Spacer(),
             GestureDetector(
-              onTap: () => context
+              onTap: () {
+                context
                   .read<AppState>()
-                  .addTrackedHabit(context.read<TrackedHabit>()),
+                  .addTrackedHabit(context.read<TrackedHabit>());
+                Navigator.popUntil(context, ModalRoute.withName(Garden.route));
+              },
               child: Container(
                 alignment: Alignment.center,
                 height: 70,
