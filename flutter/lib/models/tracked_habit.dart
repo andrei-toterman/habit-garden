@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:habit_garden/models/new_habit.dart';
 import 'package:habit_garden/models/schedule_entry.dart';
-
-import 'flower.dart';
-import 'completion_status.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'completion_status.dart';
+import 'flower.dart';
 
 part 'tracked_habit.g.dart';
 

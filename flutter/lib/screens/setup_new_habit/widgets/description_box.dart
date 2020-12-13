@@ -33,15 +33,18 @@ class _DescriptionBoxState extends State<DescriptionBox> {
         cursorColor: Colors.black,
         controller: descriptionController,
         onChanged: (d) => context.read<TrackedHabit>().description = d,
-        style: TextStyle(color: Colors.black, fontSize: 20),
+        style: TextStyle(fontSize: 20, color: Color(0xff30452D)),
         decoration: InputDecoration(
           hintText: 'custom user description',
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black, width: 3),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black, width: 3),
-          ),
+          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+          enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+        ),
+      ),
+      decoration: BoxDecoration(
+        color: Color(0xffA5A58D),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          topLeft: Radius.circular(20),
         ),
       ),
     );

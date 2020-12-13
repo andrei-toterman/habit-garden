@@ -13,11 +13,18 @@ class Header extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          child: Text(icon, style: TextStyle(fontSize: 20)),
+          child: Text(
+            'icon',
+            style: TextStyle(
+              fontSize: 25,
+              color: Color(0xff30452D),
+            ),
+          ),
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            border: Border.all(width: 3),
+            color: Color(0xffA5A58D),
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
           ),
         ),
         SizedBox(width: 10),
@@ -27,10 +34,15 @@ class Header extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: TextStyle(fontSize: 25, color: Colors.black),
+              style: TextStyle(
+                fontSize: 25,
+                color: Color(0xff30452D),
+                fontWeight: FontWeight.bold,
+              ),
             ),
             decoration: BoxDecoration(
-              border: Border.all(width: 3),
+              color: Color(0xffA5A58D),
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
             ),
           ),
         ),

@@ -7,15 +7,15 @@ class Difficulty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Difficulty', style: TextStyle(fontSize: 20, color: Colors.black)),
+        Text('Difficulty', style: TextStyle(fontSize: 20, color: Color(0xff30452D))),
         Slider(
           min: 0,
           max: 4,
           divisions: 4,
           value:
               context.select<TrackedHabit, int>((t) => t.difficulty).toDouble(),
-          activeColor: Colors.black,
-          inactiveColor: Colors.white,
+          activeColor: Color(0xff657153),
+          inactiveColor: Color(0xffA5A58D),
           onChanged: (d) =>
               context.read<TrackedHabit>().changeDifficulty(d.toInt()),
         ),
