@@ -1,5 +1,5 @@
 name: habit_garden
-description: App for tracking habits
+description: lame
 
 publish_to: 'none'
 
@@ -11,41 +11,35 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  json_annotation: ^3.0.0
-  path_provider: ^1.6.24
+  blobs: ^1.2.0
+  fluttertoast: ^7.1.6
+  flutter_svg: ^0.19.2+1
+  url_launcher: ^5.7.10
+  provider: ^4.3.2+2
+  get_it: ^5.0.3
+  firebase_core: 0.5.3
+  firebase_auth: ^0.18.4
+  google_sign_in: ^4.5.1
+  flutter_twitter_login: ^1.1.0
+  cloud_firestore: ^0.14.4
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.8.1
   flutter_test:
     sdk: flutter
-  build_runner: ^1.0.0
-  json_serializable: ^3.2.0
-  provider: ^4.3.2+2
-  flutter_launcher_icons: "^0.8.0"
-
+  integration_test:
+    sdk: flutter
 
 flutter_icons:
-  android: "launcher_icon"
-  image_path: "assets/icon.png"
+  android: launcher_icon
+  image_path: assets/icon.png
 
 flutter:
 
   uses-material-design: true
 
   assets:
-    - assets/wip.png
-    - assets/flowers/red_1.png
-    - assets/flowers/red_2.png
-    - assets/flowers/red_3.png
-    - assets/flowers/red_4.png
-    - assets/flowers/orange_1.png
-    - assets/flowers/orange_2.png
-    - assets/flowers/orange_3.png
-    - assets/flowers/orange_4.png
-    - assets/flowers/yellow_1.png
-    - assets/flowers/yellow_2.png
-    - assets/flowers/yellow_3.png
-    - assets/flowers/yellow_4.png
-    - assets/flowers/black_1.png
-    - assets/flowers/black_2.png
-    - assets/flowers/black_3.png
-    - assets/flowers/black_4.png
+    - assets/flowers/
+    - assets/icons/
+    - assets/titlebars/
+    - assets/garden.svg

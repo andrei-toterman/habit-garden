@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/models/tracked_habit.dart';
+import 'package:blobs/blobs.dart';
 import 'package:provider/provider.dart';
 
-class FlowerPicker extends StatefulWidget {
-  static final types = ['red', 'yellow', 'orange', 'black'];
+import '../../../styles.dart';
+import '../setup_habit_viewmodel.dart';
 
-  @override
-  _FlowerPickerState createState() => _FlowerPickerState();
-}
-
-class _FlowerPickerState extends State<FlowerPicker> {
-  int typeIdx = 0;
+class FlowerPicker extends StatelessWidget {
+  static const types = const ['red', 'yellow', 'orange'];
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onHorizontalDragEnd: (drag) {
-        setState(() {
-          typeIdx = (typeIdx - drag.primaryVelocity.sign.toInt()) %
-              FlowerPicker.types.length;
-        });
-        context.read<TrackedHabit>().flower.type = FlowerPicker.types[typeIdx];
-      },
-      child: Container(
-        width: 150,
-        height: 150,
-        alignment: Alignment.center,
-        child:
-            Image.asset('assets/flowers/${FlowerPicker.types[typeIdx]}_4.png'),
-        decoration: BoxDecoration(
-          color: Color(0xffA5A58D),
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
+    return Container(
+      width: 170,
+      height: 170,
+      decoration: CONTAINER_LEFT,
+      child: PageView(
+        onPageChanged: (index) =>
+            context.read<SetupHabitViewModel>().flowerType = types[index],
+        children: [for (var type in types) buildFlower(type)],
       ),
     );
   }
+
+  Widget buildFlower(String type) => Stack(children: [
+        Blob.random(
+          size: 170,
+          minGrowth: 7,
+          styles: BlobStyles(color: GRASS_COLOR),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Image.asset('assets/flowers/${type}_4.png', width: 150),
+        ),
+      ]);
 }

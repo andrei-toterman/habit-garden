@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../styles.dart';
 
 class Header extends StatelessWidget {
   final String title;
@@ -9,42 +12,29 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           alignment: Alignment.center,
-          child: Text(
-            'icon',
-            style: TextStyle(
-              fontSize: 25,
-              color: Color(0xff30452D),
-            ),
-          ),
           width: 100,
           height: 100,
-          decoration: BoxDecoration(
-            color: Color(0xffA5A58D),
-            borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
-          ),
+          child: Text('icon', style: TEXT_18),
+          decoration: CONTAINER_TOP_LEFT,
         ),
-        SizedBox(width: 10),
+        SizedBox(width: 20),
         Expanded(
-          child: Container(
-            height: 100,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 25,
-                color: Color(0xff30452D),
-                fontWeight: FontWeight.bold,
+          child: Stack(children: [
+            Positioned.fill(
+              child: SvgPicture.asset(
+                "assets/titlebars/setup.svg",
+                fit: BoxFit.fill,
               ),
             ),
-            decoration: BoxDecoration(
-              color: Color(0xffA5A58D),
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20)),
+            Container(
+              alignment: Alignment.center,
+              height: 100,
+              child: Text(title, style: TEXT_36),
             ),
-          ),
+          ]),
         ),
       ],
     );

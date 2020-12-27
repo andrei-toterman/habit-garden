@@ -1,58 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/models/tracked_habit.dart';
 import 'package:provider/provider.dart';
 
-class DescriptionBox extends StatefulWidget {
-  final String initialDescription;
+import '../../../styles.dart';
+import '../setup_habit_viewmodel.dart';
 
-  const DescriptionBox({Key key, this.initialDescription}) : super(key: key);
+class DescriptionBox extends StatelessWidget {
+  final String hint;
 
-  @override
-  _DescriptionBoxState createState() => _DescriptionBoxState();
-}
-
-class _DescriptionBoxState extends State<DescriptionBox> {
-  TextEditingController descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    descriptionController = TextEditingController()
-      ..text = widget.initialDescription;
-  }
+  const DescriptionBox({Key key, this.hint}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 170,
+      decoration: CONTAINER_RIGHT,
       child: TextField(
         expands: true,
         maxLines: null,
         minLines: null,
+        cursorColor: DARK_COLOR,
         textAlignVertical: TextAlignVertical.top,
-        cursorColor: Colors.black,
-        controller: descriptionController,
-        onChanged: (d) => context.read<TrackedHabit>().description = d,
-        style: TextStyle(fontSize: 20, color: Color(0xff30452D)),
+        style: TEXT_24,
+        onChanged: (d) => context.read<SetupHabitViewModel>().description = d,
         decoration: InputDecoration(
-          hintText: 'custom user description',
+          hintText: hint,
+          hintMaxLines: 3,
+          hintStyle: TEXT_24.copyWith(color: DARK_COLOR.withAlpha(0x80)),
           focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
           enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
         ),
       ),
-      decoration: BoxDecoration(
-        color: Color(0xffA5A58D),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          topLeft: Radius.circular(20),
-        ),
-      ),
     );
-  }
-
-  @override
-  void dispose() {
-    descriptionController.dispose();
-    super.dispose();
   }
 }

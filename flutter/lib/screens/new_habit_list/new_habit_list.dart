@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/models/new_habit.dart';
-import 'package:habit_garden/screens/app_drawer.dart';
+import 'package:habit_garden/styles.dart';
+import 'package:habit_garden/navbar.dart';
+import 'package:habit_garden/screens/new_habit_list/new_habit_viewmodel.dart';
 import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
+import 'package:habit_garden/titlebar.dart';
 
-import 'new_habit_card.dart';
+import 'widgets/new_habit_card.dart';
 
 class NewHabitList extends StatelessWidget {
   static const route = 'new_habit_list';
@@ -11,61 +13,65 @@ class NewHabitList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFF1E6),
-      drawer: AppDrawer(),
-      body: ListView(
-        children: newHabits.map((habit) => NewHabitCard(
-            model: habit,
+      appBar: TitleBar("New Habit", route),
+      backgroundColor: BG_COLOR,
+      bottomNavigationBar: NavigationBar(),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: ListView(children: [
+        for (var nh in newHabits)
+          NewHabitCard(
+            model: nh,
             onTap: () => Navigator.pushNamed(
               context,
               SetupNewHabit.route,
-              arguments: habit,
+              arguments: nh,
             ),
-          )).toList(),
-      ),
+          )
+      ]),
     );
   }
 
-  final List<NewHabit> newHabits = [
-    NewHabit(
-      'Exercise',
-      'stretch in the morning, go for a jog',
+  static const List<NewHabitViewModel> newHabits = const [
+    NewHabitViewModel(
+      "Exercise",
+      "stretch in the morning",
     ),
-    NewHabit(
-      'Less technology',
-      'check your feed just once a day, take a break from your computer every hour',
+    NewHabitViewModel(
+      "Less technology",
+      "check your feed just once a day",
     ),
-    NewHabit(
-      'Eat healthier',
-      'more greens, less sugars',
+    NewHabitViewModel(
+      "Eat healthier",
+      "more greens, less sugars",
     ),
-    NewHabit(
-      'Quit',
-      'no more smoking and less coffee',
+    NewHabitViewModel(
+      "Quit",
+      "no more smoking and less coffee",
     ),
-    NewHabit(
-      'Sleep',
-      'get at least 8 hours',
+    NewHabitViewModel(
+      "Sleep",
+      "get at least 8 hours",
     ),
-    NewHabit(
-      'Read',
-      'comic books don\'t count',
+    NewHabitViewModel(
+      "Read",
+      "comic books don't count",
     ),
-    NewHabit(
-      'Socialize',
-      'call your grandma, meet with your old pals',
+    NewHabitViewModel(
+      "Socialize",
+      "call your grandma",
     ),
-    NewHabit(
-      'Take care',
-      'water your real flower, and feed your fish',
+    NewHabitViewModel(
+      "Take care",
+      "water your real flowers",
     ),
-    NewHabit(
-      'Practice',
-      'that guitar won\'t play itself',
+    NewHabitViewModel(
+      "Practice",
+      "that guitar won't play itself",
     ),
-    NewHabit(
-      'Mental health',
-      'meditate in the morning',
+    NewHabitViewModel(
+      "Mental health",
+      "meditate in the morning",
     ),
   ];
 }

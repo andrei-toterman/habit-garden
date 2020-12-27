@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/models/tracked_habit.dart';
 import 'package:provider/provider.dart';
+
+import '../../../styles.dart';
+import '../setup_habit_viewmodel.dart';
 
 class Difficulty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('Difficulty', style: TextStyle(fontSize: 20, color: Color(0xff30452D))),
-        Slider(
-          min: 0,
-          max: 4,
-          divisions: 4,
-          value:
-              context.select<TrackedHabit, int>((t) => t.difficulty).toDouble(),
-          activeColor: Color(0xff657153),
-          inactiveColor: Color(0xffA5A58D),
-          onChanged: (d) =>
-              context.read<TrackedHabit>().changeDifficulty(d.toInt()),
+    return Container(
+      color: MAIN_COLOR,
+      padding: EdgeInsets.all(10),
+      child: Column(children: [
+        Text('Difficulty', style: TEXT_24),
+        SizedBox(height: 20),
+        Selector<SetupHabitViewModel, int>(
+          selector: (_, th) => th.difficulty,
+          builder: (_, difficulty, __) => Slider(
+            min: 0,
+            max: 4,
+            divisions: 4,
+            value: difficulty.toDouble(),
+            activeColor: DARK_COLOR,
+            inactiveColor: CONTAINER_COLOR,
+            onChanged: (d) {
+              context.read<SetupHabitViewModel>().difficulty = d.toInt();
+            },
+          ),
         ),
-      ],
+      ]),
     );
   }
 }

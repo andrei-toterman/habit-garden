@@ -1,45 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:habit_garden/screens/setup_new_habit/schedule_entry_viewmodel.dart';
 
-part 'schedule_entry.g.dart';
-
-@JsonSerializable(explicitToJson: true, nullable: false)
 class ScheduleEntry {
   final int hour;
   final int minute;
-  final Set<int> days;
+  final List<bool> days;
 
   ScheduleEntry(this.hour, this.minute, this.days);
 
-  ScheduleEntry.fromTimeOfDay(TimeOfDay time)
-      : hour = time.hour,
-        minute = time.minute,
-        days = Set();
+  ScheduleEntry.fromViewModel(ScheduleEntryViewModel entry)
+      : this(
+          entry.hour,
+          entry.minute,
+          [...entry.days],
+        );
 
-  ScheduleEntry.fromDateTime(DateTime time)
-      : hour = time.hour,
-        minute = time.minute,
-        days = Set();
+  ScheduleEntry.fromJson(Map<String, dynamic> json)
+      : this(
+          json["hour"] as int,
+          json["minute"] as int,
+          (json['days'] as List).map((e) => e as bool).toList(),
+        );
 
-  factory ScheduleEntry.now() {
-    return ScheduleEntry.fromDateTime(DateTime.now());
-  }
-
-  @override
-  String toString() {
-    String _addLeadingZeroIfNeeded(int value) {
-      if (value < 10) return '0$value';
-      return value.toString();
-    }
-
-    final String hourLabel = _addLeadingZeroIfNeeded(hour);
-    final String minuteLabel = _addLeadingZeroIfNeeded(minute);
-
-    return '$ScheduleEntry($hourLabel:$minuteLabel)';
-  }
-
-  factory ScheduleEntry.fromJson(Map<String, dynamic> json) =>
-      _$ScheduleEntryFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ScheduleEntryToJson(this);
+  Map<String, dynamic> toJson() => {
+        'hour': hour,
+        'minute': minute,
+        'days': days,
+      };
 }

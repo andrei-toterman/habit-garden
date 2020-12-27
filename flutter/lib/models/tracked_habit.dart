@@ -1,62 +1,94 @@
-import 'package:flutter/cupertino.dart';
-import 'package:habit_garden/models/new_habit.dart';
-import 'package:habit_garden/models/schedule_entry.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:math';
 
-import 'completion_status.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
+import 'package:habit_garden/models/completion_status.dart';
+import 'package:habit_garden/screens/setup_new_habit/setup_habit_viewmodel.dart';
+
+import '../database.dart';
 import 'flower.dart';
+import 'schedule_entry.dart';
 
-part 'tracked_habit.g.dart';
-
-@JsonSerializable(explicitToJson: true, nullable: false)
-class TrackedHabit extends ChangeNotifier {
+class TrackedHabit {
+  final String id;
   final String title;
-  String description;
-  final List<ScheduleEntry> schedules;
+  final String description;
+  final List<ScheduleEntry> schedule;
   final Flower flower;
-  final List<CompletionStatus> completionHistory;
-  final DateTime creationDate;
-  int difficulty;
+  final DateTime timestamp;
+  final int difficulty;
 
-  set flowerX(double x) {
-    flower.x = x;
-    notifyListeners();
+  TrackedHabit(this.title, this.description, this.schedule, this.flower,
+      this.timestamp, this.difficulty,
+      [this.id]);
+
+  TrackedHabit.fromViewModel(String title, SetupHabitViewModel habit)
+      : this(
+          title,
+          habit.description,
+          habit.schedule
+              .map((entry) => ScheduleEntry.fromViewModel(entry))
+              .toList(),
+          Flower(
+            habit.flowerType,
+            4,
+            Random().nextDouble(),
+            Random().nextDouble(),
+          ),
+          DateTime.now(),
+          habit.difficulty,
+        );
+
+  TrackedHabit.fromFirebase(DocumentSnapshot doc)
+      : this(
+          doc["title"] as String,
+          doc["description"] as String,
+          (doc["schedule"] as List)
+              .map((e) => ScheduleEntry.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          Flower.fromJson(doc["flower"] as Map<String, dynamic>),
+          DateTime.parse(doc["timestamp"] as String),
+          doc["difficulty"] as int,
+          doc.id,
+        );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "description": description,
+        "schedule": schedule.map((e) => e.toJson()).toList(),
+        "flower": flower.toJson(),
+        "timestamp": timestamp.toIso8601String(),
+        "difficulty": difficulty,
+      };
+
+  changeFlowerCoords(double x, double y) =>
+      GetIt.I<Database>().changeFlowerCoords(id, x, y);
+
+  changeFlowerType(String type) =>
+      GetIt.I<Database>().changeFlowerType(id, type);
+
+  changeDescription(String description) =>
+      GetIt.I<Database>().changeDescription(id, description);
+
+  addCompletionStatus(CompletionStatus status) =>
+      GetIt.I<Database>().addCompletionStatus(id, status);
+
+  kill() {
+    GetIt.I<Database>().changeFlowerHealth(id, 1);
+    GetIt.I<Database>().clearSchedule(id);
   }
 
-  set flowerY(double y) {
-    flower.y = y;
-    notifyListeners();
+  bool get isActive {
+    final now = DateTime.now();
+    return schedule
+        .where((e) => e.days[now.weekday - 1])
+        .map((e) => DateTime(now.year, now.month, now.day, e.hour, e.minute))
+        .where((e) =>
+            e.isAfter(now.subtract(Duration(minutes: 15))) &&
+            e.isBefore(now.add(Duration(minutes: 15))))
+        .isNotEmpty;
   }
 
-  addSchedule(ScheduleEntry entry) {
-    schedules.add(entry);
-    notifyListeners();
-  }
-
-  removeSchedule(ScheduleEntry entry) {
-    schedules.remove(entry);
-    notifyListeners();
-  }
-
-  addStatus(CompletionStatus status) {
-    completionHistory.add(status);
-    notifyListeners();
-  }
-
-  changeDifficulty(int d) {
-    difficulty = d;
-    notifyListeners();
-  }
-
-  TrackedHabit(this.title, this.description, this.schedules, this.flower,
-      this.completionHistory, this.creationDate, this.difficulty);
-
-  TrackedHabit.fromNewHabit(NewHabit newHabit)
-      : this(newHabit.title, newHabit.description, [], Flower.defaultFlower(),
-            [], DateTime.now(), 2);
-
-  factory TrackedHabit.fromJson(Map<String, dynamic> json) =>
-      _$TrackedHabitFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TrackedHabitToJson(this);
+  Future<Iterable<CompletionStatus>> get history async =>
+      await GetIt.I<Database>().getCompletionHistory(id);
 }
