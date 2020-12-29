@@ -37,7 +37,13 @@ class HabitCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(habit.title, style: TEXT_24),
-                Text(habit.description, style: TEXT_18),
+                Flexible(
+                  child: Text(
+                    habit.description,
+                    style: TEXT_18,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
               ],
             ),
             decoration: CONTAINER_RIGHT,

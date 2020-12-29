@@ -50,7 +50,7 @@ class Database extends ChangeNotifier {
 
   Future<Iterable<CompletionStatus>> getCompletionHistory(String id) async {
     final history =
-        await _userHabits.value?.doc(id)?.collection("history")?.get();
+        await _userHabits.value?.doc(id)?.collection("history")?.orderBy("timestamp")?.get();
     return history.docs.map((json) => CompletionStatus.fromJson(json.data()));
   }
 

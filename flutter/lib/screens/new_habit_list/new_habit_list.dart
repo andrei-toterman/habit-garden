@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:habit_garden/styles.dart';
-import 'package:habit_garden/navbar.dart';
-import 'package:habit_garden/screens/new_habit_list/new_habit_viewmodel.dart';
 import 'package:habit_garden/screens/setup_new_habit/setup_new_habit.dart';
-import 'package:habit_garden/titlebar.dart';
 
+import '../../navbar.dart';
+import '../../styles.dart';
+import '../../titlebar.dart';
+import 'new_habit_viewmodel.dart';
 import 'widgets/new_habit_card.dart';
 
 class NewHabitList extends StatelessWidget {

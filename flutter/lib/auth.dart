@@ -22,7 +22,8 @@ class Auth {
     _auth.currentUser.updateProfile(photoURL: photoURL);
   }
 
-  static bool isLoggedIn(User user) => user != null && !user.isAnonymous;
+  static bool isLoggedIn(User user) =>
+      user != null && user.providerData.isNotEmpty;
 
   bool isLinked(String provider) => _auth.currentUser.providerData
       .any((element) => element.providerId == provider);
@@ -83,10 +84,6 @@ class Auth {
       if (exists) {
         if (!hasProvider()) {
           await _auth.signInWithCredential(credential);
-          if (_auth.currentUser.photoURL == null)
-            changePhoto(_auth.currentUser.providerData?.first?.photoURL);
-          if (_auth.currentUser.displayName == null)
-            changeNickname(_auth.currentUser.providerData?.first?.displayName);
         } else {
           Fluttertoast.showToast(
             msg: "This social media account is already linked.\n"
@@ -97,6 +94,10 @@ class Auth {
           );
         }
       }
+      if (_auth.currentUser.photoURL == null)
+        changePhoto(_auth.currentUser.providerData?.first?.photoURL);
+      if (_auth.currentUser.displayName == null)
+        changeNickname(_auth.currentUser.providerData?.first?.displayName);
     }
   }
 
