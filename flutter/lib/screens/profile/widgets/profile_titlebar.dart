@@ -34,9 +34,11 @@ class _ProfileTitleBarState extends State<ProfileTitleBar> {
         fit: BoxFit.fill,
         width: double.infinity,
       ),
-      Align(
-        alignment: Alignment(0, -0.9),
-        child: Text("Profile", style: TEXT_36),
+      SafeArea(
+        child: Align(
+          alignment: Alignment(0, -0.9),
+          child: Text("Profile", style: TEXT_36),
+        ),
       ),
       GestureDetector(
         onTap: () => Navigator.pushNamed(context, Settings.route),
