@@ -23,6 +23,14 @@ h2 {
     padding: 5px;
     border-radius: 10px;
 }
+code {
+    color: brown;
+    font-family: 'Courier New', monospace;
+}
+pre {
+    background-color: #ede4f1;
+    padding: 10px;
+}
 </style>
 
 ![][title]
@@ -271,3 +279,4 @@ All the assests of the app are stores in the `assets` folder in the following wa
 - `icon.png` is the app icon displayed in Android
 
 [title]: title.png
+
