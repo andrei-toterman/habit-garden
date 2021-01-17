@@ -14,7 +14,7 @@ class FlowerPicker extends StatefulWidget {
 
 class _FlowerPickerState extends State<FlowerPicker> {
   PageController pageController;
-  int health;
+  double health;
 
   @override
   void initState() {

@@ -2,7 +2,7 @@ class Flower {
   // the type and the health combined will identify the associated asset
   // i.e.  rose_3.png
   final String type;
-  final int health;
+  final double health;
 
   // alignment inside garden, between 0 and 1
   final double x, y;
@@ -12,7 +12,7 @@ class Flower {
   Flower.fromJson(Map<String, dynamic> json)
       : this(
           json["type"] as String,
-          json["health"] as int,
+          json["health"] as double,
           json["x"] as double,
           json["y"] as double,
         );

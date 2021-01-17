@@ -38,7 +38,7 @@ class _GardenFlowerState extends State<GardenFlower> {
           arguments: widget.habit,
         ),
         child: Image.asset(
-          'assets/flowers/${widget.habit.flower.type}_${widget.habit.flower.health}.png',
+          'assets/flowers/${widget.habit.flower.type}_${widget.habit.flower.health.ceil()}.png',
           width: 200,
         ),
       ),

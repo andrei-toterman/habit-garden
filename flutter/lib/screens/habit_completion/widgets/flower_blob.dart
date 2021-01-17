@@ -5,7 +5,7 @@ import '../../../styles.dart';
 
 class FlowerBlob extends StatelessWidget {
   final String type;
-  final int health;
+  final double health;
 
   const FlowerBlob(this.type, this.health, {Key key}) : super(key: key);
 
@@ -22,7 +22,7 @@ class FlowerBlob extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Image.asset(
-            "assets/flowers/${type}_$health.png",
+            "assets/flowers/${type}_${health.ceil()}.png",
             height: 180,
           ),
         )

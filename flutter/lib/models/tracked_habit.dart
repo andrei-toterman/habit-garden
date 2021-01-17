@@ -73,8 +73,11 @@ class TrackedHabit {
   addCompletionStatus(CompletionStatus status) =>
       GetIt.I<Database>().addCompletionStatus(id, status);
 
+  decayFlower() => GetIt.I<Database>()
+      .changeFlowerHealth(id, flower.health - pow(2.0, difficulty - 4));
+
   kill() {
-    GetIt.I<Database>().changeFlowerHealth(id, 1);
+    GetIt.I<Database>().changeFlowerHealth(id, 1.0);
     GetIt.I<Database>().clearSchedule(id);
   }
 

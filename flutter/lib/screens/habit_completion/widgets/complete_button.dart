@@ -22,6 +22,7 @@ class CompleteButton extends StatelessWidget {
             context.read<HabitCompletionViewModel>(),
           ),
         );
+        if (!active) habit.decayFlower();
         Navigator.pop(context);
       },
       child: Container(

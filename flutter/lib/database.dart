@@ -39,7 +39,7 @@ class Database extends ChangeNotifier {
   changeFlowerType(String id, String type) =>
       _userHabits.value?.doc(id)?.update({"flower.type": type});
 
-  changeFlowerHealth(String id, int health) =>
+  changeFlowerHealth(String id, double health) =>
       _userHabits.value?.doc(id)?.update({"flower.health": health});
 
   changeDescription(String id, String description) =>
