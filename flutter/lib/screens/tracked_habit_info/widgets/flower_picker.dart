@@ -58,7 +58,7 @@ class _FlowerPickerState extends State<FlowerPicker> {
         Align(
           alignment: Alignment.topCenter,
           child: Image.asset(
-            'assets/flowers/${type}_$health.png',
+            'assets/flowers/${type}_${health.ceil()}.png',
             width: 150,
           ),
         ),

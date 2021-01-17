@@ -24,7 +24,7 @@ class HabitCard extends StatelessWidget {
           Align(
             alignment: Alignment.topCenter,
             child: Image.asset(
-              'assets/flowers/${habit.flower.type}_${habit.flower.health}.png',
+              'assets/flowers/${habit.flower.type}_${habit.flower.health.ceil()}.png',
               width: 150,
             ),
           ),

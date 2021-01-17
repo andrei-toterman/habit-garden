@@ -90,6 +90,8 @@ class Auth {
       );
       if (exists) {
         if (!hasProvider()) {
+          GetIt.I<Database>().deleteUserData(_auth.currentUser.uid);
+          await _auth.currentUser.delete();
           await _auth.signInWithCredential(credential);
         } else {
           Fluttertoast.showToast(
