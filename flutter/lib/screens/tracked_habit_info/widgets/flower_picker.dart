@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../styles.dart';
 
 class FlowerPicker extends StatefulWidget {
-  static const types = const ['red', 'yellow', 'orange'];
+  static const types = const ['red', 'yellow', 'orange', 'black'];
 
   @override
   _FlowerPickerState createState() => _FlowerPickerState();

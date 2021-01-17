@@ -6,7 +6,7 @@ import '../../../styles.dart';
 import '../setup_habit_viewmodel.dart';
 
 class FlowerPicker extends StatelessWidget {
-  static const types = const ['red', 'yellow', 'orange'];
+  static const types = const ['red', 'yellow', 'orange', 'black'];
 
   @override
   Widget build(BuildContext context) {
