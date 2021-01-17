@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:habit_garden/screens/online/online.dart';
 
 import 'screens/garden/garden.dart';
 import 'screens/new_habit_list/new_habit_list.dart';
@@ -17,7 +18,7 @@ class NavigationBar extends StatelessWidget {
         children: [
           navButton("garden", Garden.route, context),
           navButton("profile", ProfilePage.route, context),
-          navButton("online", null, context),
+          navButton("online", Online.route, context),
           navButton("plant", NewHabitList.route, context),
         ],
       ),

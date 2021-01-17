@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:habit_garden/screens/habit_completion/habit_completion.dart';
+import 'package:habit_garden/screens/online/online.dart';
 import 'package:habit_garden/screens/tracked_habit_info/tracked_habit_info.dart';
 import 'package:provider/provider.dart';
 
@@ -37,6 +38,7 @@ void main() async {
           Garden.route: (_) => Garden(),
           HabitCompletion.route: (_) => HabitCompletion(),
           NewHabitList.route: (_) => NewHabitList(),
+          Online.route: (_) => Online(),
           ProfilePage.route: (_) => ProfilePage(),
           Settings.route: (_) => Settings(),
           SetupNewHabit.route: (_) => SetupNewHabit(),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:habit_garden/models/completion_status.dart';
+import 'package:habit_garden/screens/online/user_viewmodel.dart';
 
 import 'models/tracked_habit.dart';
 
@@ -94,5 +95,12 @@ class Database extends ChangeNotifier {
       }
     });
     _db.doc("users/$uid").delete();
+  }
+
+  Future<Iterable<UserViewModel>> getUsers() async {
+    final users = await _db.collection("users").get();
+    return users.docs
+        .map((doc) => UserViewModel(doc.id, doc["nickname"], doc["photoURL"]))
+        .where((user) => user.uid != _uid);
   }
 }
