@@ -60,6 +60,28 @@ class Database extends ChangeNotifier {
   clearSchedule(String id) =>
       _userHabits.value?.doc(id)?.update({"schedule": []});
 
+  setUserNickname(String uid, String nickname) async {
+    final doc = await _db.doc("users/$uid").get();
+    if (doc.exists) {
+      print("nickname update");
+      await doc.reference.update({"nickname": nickname});
+    } else {
+      print("nickname set");
+      await doc.reference.set({"nickname": nickname});
+    }
+  }
+
+  setUserPhoto(String uid, String photoURL) async {
+    final doc = await _db.doc("users/$uid").get();
+    if (doc.exists) {
+      print("photo update");
+      await doc.reference.update({"photoURL": photoURL});
+    } else {
+      print("photo set");
+      await doc.reference.set({"photoURL": photoURL});
+    }
+  }
+
   deleteUserData(String uid) {
     _userHabits.value.get().then((habits) {
       for (var habit in habits.docs) {
@@ -71,5 +93,6 @@ class Database extends ChangeNotifier {
         habit.reference.delete();
       }
     });
+    _db.doc("users/$uid").delete();
   }
 }

@@ -18,12 +18,14 @@ class Auth {
     userStream.forEach((user) => print("USER LOG: $user"));
   }
 
-  changeNickname(String name) {
-    _auth.currentUser.updateProfile(displayName: name);
+  changeNickname(String nickname) async {
+    _auth.currentUser.updateProfile(displayName: nickname);
+    await GetIt.I<Database>().setUserNickname(_auth.currentUser.uid, nickname);
   }
 
-  changePhoto(String photoURL) {
+  changePhoto(String photoURL) async {
     _auth.currentUser.updateProfile(photoURL: photoURL);
+    await GetIt.I<Database>().setUserPhoto(_auth.currentUser.uid, photoURL);
   }
 
   static bool isLoggedIn(User user) =>
@@ -100,9 +102,9 @@ class Auth {
         }
       }
       if (_auth.currentUser.photoURL == null)
-        changePhoto(_auth.currentUser.providerData?.first?.photoURL);
+        await changePhoto(_auth.currentUser.providerData?.first?.photoURL);
       if (_auth.currentUser.displayName == null)
-        changeNickname(_auth.currentUser.providerData?.first?.displayName);
+        await changeNickname(_auth.currentUser.providerData?.first?.displayName);
     }
   }
 
