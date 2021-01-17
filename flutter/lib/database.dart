@@ -49,11 +49,27 @@ class Database extends ChangeNotifier {
       _userHabits.value?.doc(id)?.collection("history")?.add(status.toJson());
 
   Future<Iterable<CompletionStatus>> getCompletionHistory(String id) async {
-    final history =
-        await _userHabits.value?.doc(id)?.collection("history")?.orderBy("timestamp")?.get();
+    final history = await _userHabits.value
+        ?.doc(id)
+        ?.collection("history")
+        ?.orderBy("timestamp")
+        ?.get();
     return history.docs.map((json) => CompletionStatus.fromJson(json.data()));
   }
 
   clearSchedule(String id) =>
       _userHabits.value?.doc(id)?.update({"schedule": []});
+
+  deleteUserData(String uid) {
+    _userHabits.value.get().then((habits) {
+      for (var habit in habits.docs) {
+        habit.reference.collection("history").get().then((history) {
+          for (var entry in history.docs) {
+            entry.reference.delete();
+          }
+        });
+        habit.reference.delete();
+      }
+    });
+  }
 }

@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'database.dart';
 
 class Auth {
   final _auth = FirebaseAuth.instance;
@@ -115,6 +118,7 @@ class Auth {
       if (credential != null)
         await _auth.currentUser.reauthenticateWithCredential(credential);
     }
+    GetIt.I<Database>().deleteUserData(_auth.currentUser.uid);
     await _auth.currentUser.delete();
     _auth.signInAnonymously();
   }
