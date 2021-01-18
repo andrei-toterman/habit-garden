@@ -86,7 +86,7 @@ class Settings extends StatelessWidget {
             buildButton(
               "Help",
               () => launch(
-                  "https://github.com/andrei-toterman/habit-garden/wiki"),
+                  "https://andrei-toterman.github.io/habit-garden/"),
             ),
             buildButton(
               "Delete",
