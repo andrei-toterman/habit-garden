@@ -12,7 +12,7 @@ class Flower {
   Flower.fromJson(Map<String, dynamic> json)
       : this(
           json["type"] as String,
-          json["health"] as double,
+          (json["health"] as num).toDouble(),
           json["x"] as double,
           json["y"] as double,
         );

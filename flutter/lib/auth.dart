@@ -85,6 +85,7 @@ class Auth {
       bool exists = false;
       await _auth.currentUser.linkWithCredential(credential).catchError(
         (error) {
+          print("auth error: $error");
           exists = error.code == "credential-already-in-use";
         },
       );
@@ -103,10 +104,12 @@ class Auth {
           );
         }
       }
-      if (_auth.currentUser.photoURL == null)
+      if (_auth.currentUser.photoURL == null) {
         await changePhoto(_auth.currentUser.providerData?.first?.photoURL);
-      if (_auth.currentUser.displayName == null)
+      }
+      if (_auth.currentUser.displayName == null) {
         await changeNickname(_auth.currentUser.providerData?.first?.displayName);
+      }
     }
   }
 
